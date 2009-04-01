@@ -7,4 +7,4 @@ Feature: Ruby class visualization
   Scenario: Simple file
     Given a sample ruby file, example1.rb
     When I execute "rubyviz example1.rb"
-    Then the expect output file example1.png should be produced
+    Then the expect output file "example1.rb.png" should be produced

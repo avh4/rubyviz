@@ -1,5 +1,6 @@
 require 'optparse'
 require 'fileutils'
+require 'graphviz'
 
 module Rubyviz
   class CLI
@@ -37,7 +38,15 @@ module Rubyviz
       path = options[:path]
 
       # do stuff
-      FileUtils.touch("example1.png")
+      generate_png("example1.rb")
+    end
+    
+    def self.generate_png(input)
+      g = GraphViz::new( "G", "output" => "png" )
+
+      a = g.add_node( "method1" )
+
+      g.output( :file => "#{input}.png" )
     end
   end
 end
