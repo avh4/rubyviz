@@ -38,7 +38,7 @@ module Rubyviz
       path = options[:path]
 
       # do stuff
-      generate_png("example1.rb")
+      generate_png(arguments[0])
     end
     
     def self.generate_png(input)

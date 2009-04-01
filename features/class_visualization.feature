@@ -4,7 +4,12 @@ Feature: Ruby class visualization
   As a ruby developer
   I want to see a diagram of how class methods and variables collaborate
 
-  Scenario: Simple file
-    Given a sample ruby file, example1.rb
-    When I execute "rubyviz example1.rb"
-    Then the expect output file "example1.rb.png" should be produced
+  Scenario Outline: Example ruby file
+    Given a sample ruby file, <example>.rb
+    When I execute "rubyviz <example>.rb"
+    Then the expected output file "<example>.rb.png" should be produced
+    
+  Examples:
+    | example  |
+    | example1 |
+    | example2 |
