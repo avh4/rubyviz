@@ -45,6 +45,9 @@ module Rubyviz
       g = GraphViz::new( "G", "output" => "png" )
 
       a = g.add_node( "method1" )
+      # v = g.add_node( '"@var1"' )
+      #      
+      #      g.add_edge( a, v )
 
       g.output( :file => "#{input}.png" )
     end

@@ -27,7 +27,6 @@ module CommonHelpers
   end
   
   def test_data_file(file)
-    puts TEST_DATA_PATH
     File.expand_path(TEST_DATA_PATH + "/" + file)
   end
 

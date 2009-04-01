@@ -1,0 +1,7 @@
+# A class with a single method that uses a variable
+
+class Example3
+  def method1
+    @var1 = 424242
+  end
+end

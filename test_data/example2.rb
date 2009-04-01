@@ -1,7 +1,18 @@
-# A class with a single method that uses a variable
+# A class with many methods
 
-class Example1
+class Example2
   def method1
-    @var1 = 424242
+  end
+  def method2
+  end
+  def method3
+  end
+  def method4
+  end
+  def method5
+  end
+  def method6
+  end
+  def method7
   end
 end

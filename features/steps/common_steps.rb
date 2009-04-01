@@ -15,6 +15,6 @@ Then /^the expected output file "([^"]*)" should be produced$/ do |file|
   if !File.exist?(test_data_file(file))
     pending "test_data_file(file) needs to be created"
   end
-  system "diff #{project_folder_file(file)} #{test_data_file(file)}"
+  capture_output "diff #{project_folder_file(file)} #{test_data_file(file)}"
   $?.exitstatus.should == 0
 end

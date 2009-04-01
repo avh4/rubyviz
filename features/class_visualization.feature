@@ -13,3 +13,4 @@ Feature: Ruby class visualization
     | example  |
     | example1 |
     | example2 |
+    | example3 |
