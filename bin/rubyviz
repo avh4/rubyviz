@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+#
+#  Created on 2009-4-1.
+#  Copyright (c) 2009. All rights reserved.
+
+require File.expand_path(File.dirname(__FILE__) + "/../lib/rubyviz")
+
+require "rubyviz/cli"
+
+Rubyviz::CLI.execute(STDOUT, ARGV)
