@@ -10,5 +10,5 @@ if !File.exist?(new_file)
   exit 1
 end
 
-FileUtils.cp new_file, approved_file
+FileUtils.mv new_file, approved_file
 puts "Approved #{ARGV[0]}"

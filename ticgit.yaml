@@ -1,0 +1,2433 @@
+--- 
+- :block
+- - :fcall
+  - :require
+  - - :array
+    - - :str
+      - ticgit
+- - :fcall
+  - :require
+  - - :array
+    - - :str
+      - optparse
+- - :module
+  - :TicGit
+  - - :scope
+    - - :class
+      - :CLI
+      - 
+      - - :scope
+        - - :block
+          - - :fcall
+            - :attr_reader
+            - - :array
+              - - :lit
+                - :action
+              - - :lit
+                - :options
+              - - :lit
+                - :args
+              - - :lit
+                - :tic
+          - - :defs
+            - - :self
+            - :execute
+            - - :scope
+              - - :block
+                - - :args
+                - - :call
+                  - - :fcall
+                    - :parse
+                    - - :array
+                      - - :const
+                        - :ARGV
+                  - :execute!
+          - - :defs
+            - - :self
+            - :parse
+            - - :scope
+              - - :block
+                - - :args
+                  - :args
+                - - :lasgn
+                  - :cli
+                  - - :fcall
+                    - :new
+                    - - :array
+                      - - :lvar
+                        - :args
+                - - :call
+                  - - :lvar
+                    - :cli
+                  - :parse_options!
+                - - :lvar
+                  - :cli
+          - - :defn
+            - :initialize
+            - - :scope
+              - - :block
+                - - :args
+                  - :args
+                - - :rescue
+                  - - :block
+                    - - :iasgn
+                      - :@args
+                      - - :call
+                        - - :lvar
+                          - :args
+                        - :dup
+                    - - :iasgn
+                      - :@tic
+                      - - :call
+                        - - :const
+                          - :TicGit
+                        - :open
+                        - - :array
+                          - - :str
+                            - .
+                          - - :hash
+                            - - :lit
+                              - :keep_state
+                            - - :true
+                    - - :attrasgn
+                      - - :gvar
+                        - :$stdout
+                      - :sync=
+                      - - :array
+                        - - :true
+                  - - :resbody
+                    - - :array
+                      - - :const
+                        - :NoRepoFound
+                    - - :block
+                      - - :fcall
+                        - :puts
+                        - - :array
+                          - - :str
+                            - No repo found
+                      - - :vcall
+                        - :exit
+          - - :defn
+            - :execute!
+            - - :scope
+              - - :block
+                - - :args
+                - - :case
+                  - - :vcall
+                    - :action
+                  - - :when
+                    - - :array
+                      - - :str
+                        - list
+                    - - :vcall
+                      - :handle_ticket_list
+                  - - :when
+                    - - :array
+                      - - :str
+                        - state
+                    - - :vcall
+                      - :handle_ticket_state
+                  - - :when
+                    - - :array
+                      - - :str
+                        - assign
+                    - - :vcall
+                      - :handle_ticket_assign
+                  - - :when
+                    - - :array
+                      - - :str
+                        - show
+                    - - :vcall
+                      - :handle_ticket_show
+                  - - :when
+                    - - :array
+                      - - :str
+                        - new
+                    - - :vcall
+                      - :handle_ticket_new
+                  - - :when
+                    - - :array
+                      - - :str
+                        - checkout
+                      - - :str
+                        - co
+                    - - :vcall
+                      - :handle_ticket_checkout
+                  - - :when
+                    - - :array
+                      - - :str
+                        - comment
+                    - - :vcall
+                      - :handle_ticket_comment
+                  - - :when
+                    - - :array
+                      - - :str
+                        - tag
+                    - - :vcall
+                      - :handle_ticket_tag
+                  - - :when
+                    - - :array
+                      - - :str
+                        - recent
+                    - - :vcall
+                      - :handle_ticket_recent
+                  - - :when
+                    - - :array
+                      - - :str
+                        - milestone
+                    - - :vcall
+                      - :handle_ticket_milestone
+                  - - :when
+                    - - :array
+                      - - :str
+                        - points
+                    - - :vcall
+                      - :handle_ticket_points
+                  - - :fcall
+                    - :puts
+                    - - :array
+                      - - :str
+                        - not a command
+          - - :defn
+            - :parse_ticket_milestone
+            - - :scope
+              - - :block
+                - - :args
+                - - :iasgn
+                  - :@options
+                  - - :hash
+                - - :call
+                  - - :iter
+                    - - :call
+                      - - :const
+                        - :OptionParser
+                      - :new
+                    - - :dasgn_curr
+                      - :opts
+                    - - :block
+                      - - :attrasgn
+                        - - :dvar
+                          - :opts
+                        - :banner=
+                        - - :array
+                          - - :str
+                            - "Usage: ti milestone [milestone_name] [options] [date]"
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -n MILESTONE
+                            - - :str
+                              - --new MILESTONE
+                            - - :str
+                              - Add a new milestone to this project
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :new
+                            - - :dvar
+                              - :v
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -a TICKET
+                            - - :str
+                              - --new TICKET
+                            - - :str
+                              - Add a ticket to this milestone
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :add
+                            - - :dvar
+                              - :v
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -d MILESTONE
+                            - - :str
+                              - --delete MILESTONE
+                            - - :str
+                              - Remove a milestone
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :remove
+                            - - :dvar
+                              - :v
+                  - :parse!
+          - - :defn
+            - :handle_ticket_recent
+            - - :scope
+              - - :block
+                - - :args
+                - - :iter
+                  - - :call
+                    - - :call
+                      - - :vcall
+                        - :tic
+                      - :ticket_recent
+                      - - :array
+                        - - :call
+                          - - :const
+                            - :ARGV
+                          - :[]
+                          - - :array
+                            - - :lit
+                              - 1
+                    - :each
+                  - - :dasgn_curr
+                    - :commit
+                  - - :fcall
+                    - :puts
+                    - - :array
+                      - - :call
+                        - - :call
+                          - - :call
+                            - - :call
+                              - - :call
+                                - - :call
+                                  - - :dvar
+                                    - :commit
+                                  - :sha
+                                - :[]
+                                - - :array
+                                  - - :lit
+                                    - 0
+                                  - - :lit
+                                    - 7
+                              - :+
+                              - - :array
+                                - - :str
+                                  - "  "
+                            - :+
+                            - - :array
+                              - - :call
+                                - - :call
+                                  - - :dvar
+                                    - :commit
+                                  - :date
+                                - :strftime
+                                - - :array
+                                  - - :str
+                                    - "%m/%d %H:%M"
+                          - :+
+                          - - :array
+                            - - :str
+                              - !binary |
+                                CQ==
+
+                        - :+
+                        - - :array
+                          - - :call
+                            - - :dvar
+                              - :commit
+                            - :message
+          - - :defn
+            - :parse_ticket_tag
+            - - :scope
+              - - :block
+                - - :args
+                - - :iasgn
+                  - :@options
+                  - - :hash
+                - - :call
+                  - - :iter
+                    - - :call
+                      - - :const
+                        - :OptionParser
+                      - :new
+                    - - :dasgn_curr
+                      - :opts
+                    - - :block
+                      - - :attrasgn
+                        - - :dvar
+                          - :opts
+                        - :banner=
+                        - - :array
+                          - - :str
+                            - "Usage: ti tag [tic_id] [options] [tag_name] "
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -d
+                            - - :str
+                              - Remove this tag from the ticket
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :remove
+                            - - :dvar
+                              - :v
+                  - :parse!
+          - - :defn
+            - :handle_ticket_tag
+            - - :scope
+              - - :block
+                - - :args
+                - - :vcall
+                  - :parse_ticket_tag
+                - - :if
+                  - - :call
+                    - - :vcall
+                      - :options
+                    - :[]
+                    - - :array
+                      - - :lit
+                        - :remove
+                  - - :fcall
+                    - :puts
+                    - - :array
+                      - - :str
+                        - remove
+                  - 
+                - - :lasgn
+                  - :tid
+                  - - :nil
+                - - :if
+                  - - :call
+                    - - :call
+                      - - :const
+                        - :ARGV
+                      - :size
+                    - :>
+                    - - :array
+                      - - :lit
+                        - 2
+                  - - :block
+                    - - :lasgn
+                      - :tid
+                      - - :call
+                        - - :call
+                          - - :const
+                            - :ARGV
+                          - :[]
+                          - - :array
+                            - - :lit
+                              - 1
+                        - :chomp
+                    - - :call
+                      - - :vcall
+                        - :tic
+                      - :ticket_tag
+                      - - :array
+                        - - :call
+                          - - :call
+                            - - :const
+                              - :ARGV
+                            - :[]
+                            - - :array
+                              - - :lit
+                                - 2
+                          - :chomp
+                        - - :lvar
+                          - :tid
+                        - - :vcall
+                          - :options
+                  - - :if
+                    - - :call
+                      - - :call
+                        - - :const
+                          - :ARGV
+                        - :size
+                      - :>
+                      - - :array
+                        - - :lit
+                          - 1
+                    - - :call
+                      - - :vcall
+                        - :tic
+                      - :ticket_tag
+                      - - :array
+                        - - :call
+                          - - :const
+                            - :ARGV
+                          - :[]
+                          - - :array
+                            - - :lit
+                              - 1
+                        - - :nil
+                        - - :vcall
+                          - :options
+                    - - :fcall
+                      - :puts
+                      - - :array
+                        - - :str
+                          - You need to at least specify one tag to add
+          - - :defn
+            - :parse_ticket_comment
+            - - :scope
+              - - :block
+                - - :args
+                - - :iasgn
+                  - :@options
+                  - - :hash
+                - - :call
+                  - - :iter
+                    - - :call
+                      - - :const
+                        - :OptionParser
+                      - :new
+                    - - :dasgn_curr
+                      - :opts
+                    - - :block
+                      - - :attrasgn
+                        - - :dvar
+                          - :opts
+                        - :banner=
+                        - - :array
+                          - - :str
+                            - "Usage: ti comment [tic_id] [options]"
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -m MESSAGE
+                            - - :str
+                              - --message MESSAGE
+                            - - :str
+                              - Message you would like to add as a comment
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :message
+                            - - :dvar
+                              - :v
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -f FILE
+                            - - :str
+                              - --file FILE
+                            - - :str
+                              - A file that contains the comment you would like to add
+                        - - :dasgn_curr
+                          - :v
+                        - - :block
+                          - - :if
+                            - - :call
+                              - - :ivar
+                                - :@options
+                              - :[]
+                              - - :array
+                                - - :lit
+                                  - :message
+                            - - :fcall
+                              - :raise
+                              - - :array
+                                - - :const
+                                  - :ArgumentError
+                                - - :str
+                                  - Only 1 of -f/--file and -m/--message can be specified
+                            - 
+                          - - :if
+                            - - :call
+                              - - :const
+                                - :File
+                              - :file?
+                              - - :array
+                                - - :dvar
+                                  - :v
+                            - 
+                            - - :fcall
+                              - :raise
+                              - - :array
+                                - - :const
+                                  - :ArgumentError
+                                - - :dstr
+                                  - "File "
+                                  - - :evstr
+                                    - - :dvar
+                                      - :v
+                                  - - :str
+                                    - " doesn't exist"
+                          - - :if
+                            - - :call
+                              - - :call
+                                - - :const
+                                  - :File
+                                - :size
+                                - - :array
+                                  - - :dvar
+                                    - :v
+                              - :<=
+                              - - :array
+                                - - :lit
+                                  - 2048
+                            - 
+                            - - :fcall
+                              - :raise
+                              - - :array
+                                - - :const
+                                  - :ArgumentError
+                                - - :dstr
+                                  - "File "
+                                  - - :evstr
+                                    - - :dvar
+                                      - :v
+                                  - - :str
+                                    - " must be <= 2048 bytes"
+                          - - :attrasgn
+                            - - :ivar
+                              - :@options
+                            - :[]=
+                            - - :array
+                              - - :lit
+                                - :file
+                              - - :dvar
+                                - :v
+                  - :parse!
+          - - :defn
+            - :handle_ticket_comment
+            - - :scope
+              - - :block
+                - - :args
+                - - :vcall
+                  - :parse_ticket_comment
+                - - :lasgn
+                  - :tid
+                  - - :nil
+                - - :if
+                  - - :call
+                    - - :const
+                      - :ARGV
+                    - :[]
+                    - - :array
+                      - - :lit
+                        - 1
+                  - - :lasgn
+                    - :tid
+                    - - :call
+                      - - :call
+                        - - :const
+                          - :ARGV
+                        - :[]
+                        - - :array
+                          - - :lit
+                            - 1
+                      - :chomp
+                  - 
+                - - :if
+                  - - :lasgn
+                    - :m
+                    - - :call
+                      - - :vcall
+                        - :options
+                      - :[]
+                      - - :array
+                        - - :lit
+                          - :message
+                  - - :call
+                    - - :vcall
+                      - :tic
+                    - :ticket_comment
+                    - - :array
+                      - - :lvar
+                        - :m
+                      - - :lvar
+                        - :tid
+                  - - :if
+                    - - :lasgn
+                      - :f
+                      - - :call
+                        - - :vcall
+                          - :options
+                        - :[]
+                        - - :array
+                          - - :lit
+                            - :file
+                    - - :call
+                      - - :vcall
+                        - :tic
+                      - :ticket_comment
+                      - - :array
+                        - - :call
+                          - - :const
+                            - :File
+                          - :read
+                          - - :array
+                            - - :call
+                              - - :vcall
+                                - :options
+                              - :[]
+                              - - :array
+                                - - :lit
+                                  - :file
+                        - - :lvar
+                          - :tid
+                    - - :if
+                      - - :lasgn
+                        - :message
+                        - - :vcall
+                          - :get_editor_message
+                      - - :call
+                        - - :vcall
+                          - :tic
+                        - :ticket_comment
+                        - - :array
+                          - - :call
+                            - - :lvar
+                              - :message
+                            - :join
+                            - - :array
+                              - - :str
+                                - ""
+                          - - :lvar
+                            - :tid
+                      - 
+          - - :defn
+            - :handle_ticket_checkout
+            - - :scope
+              - - :block
+                - - :args
+                - - :lasgn
+                  - :tid
+                  - - :call
+                    - - :call
+                      - - :const
+                        - :ARGV
+                      - :[]
+                      - - :array
+                        - - :lit
+                          - 1
+                    - :chomp
+                - - :call
+                  - - :vcall
+                    - :tic
+                  - :ticket_checkout
+                  - - :array
+                    - - :lvar
+                      - :tid
+          - - :defn
+            - :handle_ticket_state
+            - - :scope
+              - - :block
+                - - :args
+                - - :if
+                  - - :call
+                    - - :call
+                      - - :const
+                        - :ARGV
+                      - :size
+                    - :>
+                    - - :array
+                      - - :lit
+                        - 2
+                  - - :block
+                    - - :lasgn
+                      - :tid
+                      - - :call
+                        - - :call
+                          - - :const
+                            - :ARGV
+                          - :[]
+                          - - :array
+                            - - :lit
+                              - 1
+                        - :chomp
+                    - - :lasgn
+                      - :new_state
+                      - - :call
+                        - - :call
+                          - - :const
+                            - :ARGV
+                          - :[]
+                          - - :array
+                            - - :lit
+                              - 2
+                        - :chomp
+                    - - :if
+                      - - :fcall
+                        - :valid_state
+                        - - :array
+                          - - :lvar
+                            - :new_state
+                      - - :call
+                        - - :vcall
+                          - :tic
+                        - :ticket_change
+                        - - :array
+                          - - :lvar
+                            - :new_state
+                          - - :lvar
+                            - :tid
+                      - - :fcall
+                        - :puts
+                        - - :array
+                          - - :call
+                            - - :str
+                              - "Invalid State - please choose from : "
+                            - :+
+                            - - :array
+                              - - :call
+                                - - :call
+                                  - - :vcall
+                                    - :tic
+                                  - :tic_states
+                                - :join
+                                - - :array
+                                  - - :str
+                                    - ", "
+                  - - :if
+                    - - :call
+                      - - :call
+                        - - :const
+                          - :ARGV
+                        - :size
+                      - :>
+                      - - :array
+                        - - :lit
+                          - 1
+                    - - :block
+                      - - :lasgn
+                        - :new_state
+                        - - :call
+                          - - :call
+                            - - :const
+                              - :ARGV
+                            - :[]
+                            - - :array
+                              - - :lit
+                                - 1
+                          - :chomp
+                      - - :if
+                        - - :fcall
+                          - :valid_state
+                          - - :array
+                            - - :lvar
+                              - :new_state
+                        - - :call
+                          - - :vcall
+                            - :tic
+                          - :ticket_change
+                          - - :array
+                            - - :lvar
+                              - :new_state
+                        - - :fcall
+                          - :puts
+                          - - :array
+                            - - :call
+                              - - :str
+                                - "Invalid State - please choose from : "
+                              - :+
+                              - - :array
+                                - - :call
+                                  - - :call
+                                    - - :vcall
+                                      - :tic
+                                    - :tic_states
+                                  - :join
+                                  - - :array
+                                    - - :str
+                                      - ", "
+                    - - :fcall
+                      - :puts
+                      - - :array
+                        - - :str
+                          - You need to at least specify a new state for the current ticket
+          - - :defn
+            - :valid_state
+            - - :scope
+              - - :block
+                - - :args
+                  - :state
+                - - :call
+                  - - :call
+                    - - :vcall
+                      - :tic
+                    - :tic_states
+                  - :include?
+                  - - :array
+                    - - :lvar
+                      - :state
+          - - :defn
+            - :parse_ticket_assign
+            - - :scope
+              - - :block
+                - - :args
+                - - :iasgn
+                  - :@options
+                  - - :hash
+                - - :call
+                  - - :iter
+                    - - :call
+                      - - :const
+                        - :OptionParser
+                      - :new
+                    - - :dasgn_curr
+                      - :opts
+                    - - :block
+                      - - :attrasgn
+                        - - :dvar
+                          - :opts
+                        - :banner=
+                        - - :array
+                          - - :str
+                            - "Usage: ti assign [options] [ticket_id]"
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -u USER
+                            - - :str
+                              - --user USER
+                            - - :str
+                              - Assign the ticket to this user
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :user
+                            - - :dvar
+                              - :v
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -c TICKET
+                            - - :str
+                              - --checkout TICKET
+                            - - :str
+                              - Checkout this ticket
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :checkout
+                            - - :dvar
+                              - :v
+                  - :parse!
+          - - :defn
+            - :handle_ticket_assign
+            - - :scope
+              - - :block
+                - - :args
+                - - :vcall
+                  - :parse_ticket_assign
+                - - :if
+                  - - :call
+                    - - :vcall
+                      - :options
+                    - :[]
+                    - - :array
+                      - - :lit
+                        - :checkout
+                  - - :call
+                    - - :vcall
+                      - :tic
+                    - :ticket_checkout
+                    - - :array
+                      - - :call
+                        - - :vcall
+                          - :options
+                        - :[]
+                        - - :array
+                          - - :lit
+                            - :checkout
+                  - 
+                - - :lasgn
+                  - :tic_id
+                  - - :if
+                    - - :call
+                      - - :call
+                        - - :const
+                          - :ARGV
+                        - :size
+                      - :>
+                      - - :array
+                        - - :lit
+                          - 1
+                    - - :call
+                      - - :call
+                        - - :const
+                          - :ARGV
+                        - :[]
+                        - - :array
+                          - - :lit
+                            - 1
+                      - :chomp
+                    - - :nil
+                - - :call
+                  - - :vcall
+                    - :tic
+                  - :ticket_assign
+                  - - :array
+                    - - :call
+                      - - :vcall
+                        - :options
+                      - :[]
+                      - - :array
+                        - - :lit
+                          - :user
+                    - - :lvar
+                      - :tic_id
+          - - :defn
+            - :handle_ticket_points
+            - - :scope
+              - - :block
+                - - :args
+                - - :if
+                  - - :call
+                    - - :call
+                      - - :const
+                        - :ARGV
+                      - :size
+                    - :>
+                    - - :array
+                      - - :lit
+                        - 2
+                  - - :block
+                    - - :lasgn
+                      - :tid
+                      - - :call
+                        - - :call
+                          - - :const
+                            - :ARGV
+                          - :[]
+                          - - :array
+                            - - :lit
+                              - 1
+                        - :chomp
+                    - - :lasgn
+                      - :new_points
+                      - - :call
+                        - - :call
+                          - - :const
+                            - :ARGV
+                          - :[]
+                          - - :array
+                            - - :lit
+                              - 2
+                        - :chomp
+                    - - :call
+                      - - :vcall
+                        - :tic
+                      - :ticket_points
+                      - - :array
+                        - - :lvar
+                          - :new_points
+                        - - :lvar
+                          - :tid
+                  - - :fcall
+                    - :puts
+                    - - :array
+                      - - :str
+                        - "Usage: ti points ticket_id points"
+          - - :defn
+            - :parse_ticket_list
+            - - :scope
+              - - :block
+                - - :args
+                - - :iasgn
+                  - :@options
+                  - - :hash
+                - - :call
+                  - - :iter
+                    - - :call
+                      - - :const
+                        - :OptionParser
+                      - :new
+                    - - :dasgn_curr
+                      - :opts
+                    - - :block
+                      - - :attrasgn
+                        - - :dvar
+                          - :opts
+                        - :banner=
+                        - - :array
+                          - - :str
+                            - "Usage: ti list [options]"
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -o ORDER
+                            - - :str
+                              - --order ORDER
+                            - - :str
+                              - "Field to order by - one of : assigned,state,date"
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :order
+                            - - :dvar
+                              - :v
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -t TAG
+                            - - :str
+                              - --tag TAG
+                            - - :str
+                              - List only tickets with specific tag
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :tag
+                            - - :dvar
+                              - :v
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -s STATE
+                            - - :str
+                              - --state STATE
+                            - - :str
+                              - List only tickets in a specific state
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :state
+                            - - :dvar
+                              - :v
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -a ASSIGNED
+                            - - :str
+                              - --assigned ASSIGNED
+                            - - :str
+                              - List only tickets assigned to someone
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :assigned
+                            - - :dvar
+                              - :v
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -S SAVENAME
+                            - - :str
+                              - --saveas SAVENAME
+                            - - :str
+                              - Save this list as a saved name
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :save
+                            - - :dvar
+                              - :v
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -l
+                            - - :str
+                              - --list
+                            - - :str
+                              - Show the saved queries
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :list
+                            - - :true
+                  - :parse!
+          - - :defn
+            - :handle_ticket_list
+            - - :scope
+              - - :block
+                - - :args
+                - - :vcall
+                  - :parse_ticket_list
+                - - :if
+                  - - :call
+                    - - :const
+                      - :ARGV
+                    - :[]
+                    - - :array
+                      - - :lit
+                        - 1
+                  - - :attrasgn
+                    - - :vcall
+                      - :options
+                    - :[]=
+                    - - :array
+                      - - :lit
+                        - :saved
+                      - - :call
+                        - - :const
+                          - :ARGV
+                        - :[]
+                        - - :array
+                          - - :lit
+                            - 1
+                  - 
+                - - :if
+                  - - :lasgn
+                    - :tickets
+                    - - :call
+                      - - :vcall
+                        - :tic
+                      - :ticket_list
+                      - - :array
+                        - - :vcall
+                          - :options
+                  - - :block
+                    - - :lasgn
+                      - :counter
+                      - - :lit
+                        - 0
+                    - - :vcall
+                      - :puts
+                    - - :fcall
+                      - :puts
+                      - - :array
+                        - - :call
+                          - - :array
+                            - - :str
+                              - " "
+                            - - :fcall
+                              - :just
+                              - - :array
+                                - - :str
+                                  - "#"
+                                - - :lit
+                                  - 4
+                                - - :str
+                                  - r
+                            - - :fcall
+                              - :just
+                              - - :array
+                                - - :str
+                                  - TicId
+                                - - :lit
+                                  - 6
+                            - - :fcall
+                              - :just
+                              - - :array
+                                - - :str
+                                  - Title
+                                - - :lit
+                                  - 25
+                            - - :fcall
+                              - :just
+                              - - :array
+                                - - :str
+                                  - State
+                                - - :lit
+                                  - 5
+                            - - :fcall
+                              - :just
+                              - - :array
+                                - - :str
+                                  - Date
+                                - - :lit
+                                  - 5
+                            - - :fcall
+                              - :just
+                              - - :array
+                                - - :str
+                                  - Assgn
+                                - - :lit
+                                  - 8
+                            - - :fcall
+                              - :just
+                              - - :array
+                                - - :str
+                                  - Tags
+                                - - :lit
+                                  - 20
+                          - :join
+                          - - :array
+                            - - :str
+                              - " "
+                    - - :lasgn
+                      - :a
+                      - - :zarray
+                    - - :iter
+                      - - :call
+                        - - :lit
+                          - 80
+                        - :times
+                      - 
+                      - - :call
+                        - - :lvar
+                          - :a
+                        - :<<
+                        - - :array
+                          - - :str
+                            - "-"
+                    - - :fcall
+                      - :puts
+                      - - :array
+                        - - :call
+                          - - :lvar
+                            - :a
+                          - :join
+                          - - :array
+                            - - :str
+                              - ""
+                    - - :iter
+                      - - :call
+                        - - :lvar
+                          - :tickets
+                        - :each
+                      - - :dasgn_curr
+                        - :t
+                      - - :block
+                        - - :lasgn
+                          - :counter
+                          - - :call
+                            - - :lvar
+                              - :counter
+                            - :+
+                            - - :array
+                              - - :lit
+                                - 1
+                        - - :if
+                          - - :call
+                            - - :call
+                              - - :vcall
+                                - :tic
+                              - :current_ticket
+                            - :==
+                            - - :array
+                              - - :call
+                                - - :dvar
+                                  - :t
+                                - :ticket_name
+                          - - :dasgn_curr
+                            - :add
+                            - - :str
+                              - "*"
+                          - - :dasgn_curr
+                            - :add
+                            - - :str
+                              - " "
+                        - - :fcall
+                          - :puts
+                          - - :array
+                            - - :call
+                              - - :array
+                                - - :dvar
+                                  - :add
+                                - - :fcall
+                                  - :just
+                                  - - :array
+                                    - - :lvar
+                                      - :counter
+                                    - - :lit
+                                      - 4
+                                    - - :str
+                                      - r
+                                - - :call
+                                  - - :call
+                                    - - :dvar
+                                      - :t
+                                    - :ticket_id
+                                  - :[]
+                                  - - :array
+                                    - - :lit
+                                      - 0
+                                    - - :lit
+                                      - 6
+                                - - :fcall
+                                  - :just
+                                  - - :array
+                                    - - :call
+                                      - - :dvar
+                                        - :t
+                                      - :title
+                                    - - :lit
+                                      - 25
+                                - - :fcall
+                                  - :just
+                                  - - :array
+                                    - - :call
+                                      - - :dvar
+                                        - :t
+                                      - :state
+                                    - - :lit
+                                      - 5
+                                - - :call
+                                  - - :call
+                                    - - :dvar
+                                      - :t
+                                    - :opened
+                                  - :strftime
+                                  - - :array
+                                    - - :str
+                                      - "%m/%d"
+                                - - :fcall
+                                  - :just
+                                  - - :array
+                                    - - :call
+                                      - - :dvar
+                                        - :t
+                                      - :assigned_name
+                                    - - :lit
+                                      - 8
+                                - - :fcall
+                                  - :just
+                                  - - :array
+                                    - - :call
+                                      - - :call
+                                        - - :dvar
+                                          - :t
+                                        - :tags
+                                      - :join
+                                      - - :array
+                                        - - :str
+                                          - ","
+                                    - - :lit
+                                      - 20
+                              - :join
+                              - - :array
+                                - - :str
+                                  - " "
+                    - - :vcall
+                      - :puts
+                  - 
+          - - :defn
+            - :handle_ticket_show
+            - - :scope
+              - - :block
+                - - :args
+                - - :if
+                  - - :lasgn
+                    - :t
+                    - - :call
+                      - - :ivar
+                        - :@tic
+                      - :ticket_show
+                      - - :array
+                        - - :call
+                          - - :const
+                            - :ARGV
+                          - :[]
+                          - - :array
+                            - - :lit
+                              - 1
+                  - - :fcall
+                    - :ticket_show
+                    - - :array
+                      - - :lvar
+                        - :t
+                  - 
+          - - :defn
+            - :ticket_show
+            - - :scope
+              - - :block
+                - - :args
+                  - :t
+                - - :lasgn
+                  - :days_ago
+                  - - :call
+                    - - :call
+                      - - :call
+                        - - :call
+                          - - :call
+                            - - :const
+                              - :Time
+                            - :now
+                          - :-
+                          - - :array
+                            - - :call
+                              - - :lvar
+                                - :t
+                              - :opened
+                        - :/
+                        - - :array
+                          - - :call
+                            - - :call
+                              - - :lit
+                                - 60
+                              - :*
+                              - - :array
+                                - - :lit
+                                  - 60
+                            - :*
+                            - - :array
+                              - - :lit
+                                - 24
+                      - :round
+                    - :to_s
+                - - :vcall
+                  - :puts
+                - - :fcall
+                  - :puts
+                  - - :array
+                    - - :call
+                      - - :call
+                        - - :fcall
+                          - :just
+                          - - :array
+                            - - :str
+                              - Title
+                            - - :lit
+                              - 10
+                        - :+
+                        - - :array
+                          - - :str
+                            - ": "
+                      - :+
+                      - - :array
+                        - - :call
+                          - - :lvar
+                            - :t
+                          - :title
+                - - :fcall
+                  - :puts
+                  - - :array
+                    - - :call
+                      - - :call
+                        - - :fcall
+                          - :just
+                          - - :array
+                            - - :str
+                              - TicId
+                            - - :lit
+                              - 10
+                        - :+
+                        - - :array
+                          - - :str
+                            - ": "
+                      - :+
+                      - - :array
+                        - - :call
+                          - - :lvar
+                            - :t
+                          - :ticket_id
+                - - :vcall
+                  - :puts
+                - - :fcall
+                  - :puts
+                  - - :array
+                    - - :call
+                      - - :call
+                        - - :fcall
+                          - :just
+                          - - :array
+                            - - :str
+                              - Assigned
+                            - - :lit
+                              - 10
+                        - :+
+                        - - :array
+                          - - :str
+                            - ": "
+                      - :+
+                      - - :array
+                        - - :call
+                          - - :call
+                            - - :lvar
+                              - :t
+                            - :assigned
+                          - :to_s
+                - - :fcall
+                  - :puts
+                  - - :array
+                    - - :call
+                      - - :call
+                        - - :call
+                          - - :call
+                            - - :call
+                              - - :fcall
+                                - :just
+                                - - :array
+                                  - - :str
+                                    - Opened
+                                  - - :lit
+                                    - 10
+                              - :+
+                              - - :array
+                                - - :str
+                                  - ": "
+                            - :+
+                            - - :array
+                              - - :call
+                                - - :call
+                                  - - :lvar
+                                    - :t
+                                  - :opened
+                                - :to_s
+                          - :+
+                          - - :array
+                            - - :str
+                              - " ("
+                        - :+
+                        - - :array
+                          - - :lvar
+                            - :days_ago
+                      - :+
+                      - - :array
+                        - - :str
+                          - " days)"
+                - - :fcall
+                  - :puts
+                  - - :array
+                    - - :call
+                      - - :call
+                        - - :fcall
+                          - :just
+                          - - :array
+                            - - :str
+                              - State
+                            - - :lit
+                              - 10
+                        - :+
+                        - - :array
+                          - - :str
+                            - ": "
+                      - :+
+                      - - :array
+                        - - :call
+                          - - :call
+                            - - :lvar
+                              - :t
+                            - :state
+                          - :upcase
+                - - :if
+                  - - :call
+                    - - :call
+                      - - :lvar
+                        - :t
+                      - :points
+                    - :==
+                    - - :array
+                      - - :nil
+                  - - :fcall
+                    - :puts
+                    - - :array
+                      - - :call
+                        - - :fcall
+                          - :just
+                          - - :array
+                            - - :str
+                              - Points
+                            - - :lit
+                              - 10
+                        - :+
+                        - - :array
+                          - - :str
+                            - ": no estimate"
+                  - - :fcall
+                    - :puts
+                    - - :array
+                      - - :call
+                        - - :call
+                          - - :fcall
+                            - :just
+                            - - :array
+                              - - :str
+                                - Points
+                              - - :lit
+                                - 10
+                          - :+
+                          - - :array
+                            - - :str
+                              - ": "
+                        - :+
+                        - - :array
+                          - - :call
+                            - - :call
+                              - - :lvar
+                                - :t
+                              - :points
+                            - :to_s
+                - - :if
+                  - - :call
+                    - - :call
+                      - - :lvar
+                        - :t
+                      - :tags
+                    - :empty?
+                  - 
+                  - - :fcall
+                    - :puts
+                    - - :array
+                      - - :call
+                        - - :call
+                          - - :fcall
+                            - :just
+                            - - :array
+                              - - :str
+                                - Tags
+                              - - :lit
+                                - 10
+                          - :+
+                          - - :array
+                            - - :str
+                              - ": "
+                        - :+
+                        - - :array
+                          - - :call
+                            - - :call
+                              - - :lvar
+                                - :t
+                              - :tags
+                            - :join
+                            - - :array
+                              - - :str
+                                - ", "
+                - - :vcall
+                  - :puts
+                - - :if
+                  - - :call
+                    - - :call
+                      - - :lvar
+                        - :t
+                      - :comments
+                    - :empty?
+                  - 
+                  - - :block
+                    - - :fcall
+                      - :puts
+                      - - :array
+                        - - :call
+                          - - :call
+                            - - :str
+                              - Comments (
+                            - :+
+                            - - :array
+                              - - :call
+                                - - :call
+                                  - - :call
+                                    - - :lvar
+                                      - :t
+                                    - :comments
+                                  - :size
+                                - :to_s
+                          - :+
+                          - - :array
+                            - - :str
+                              - "):"
+                    - - :iter
+                      - - :call
+                        - - :call
+                          - - :call
+                            - - :lvar
+                              - :t
+                            - :comments
+                          - :reverse
+                        - :each
+                      - - :dasgn_curr
+                        - :c
+                      - - :block
+                        - - :fcall
+                          - :puts
+                          - - :array
+                            - - :call
+                              - - :call
+                                - - :call
+                                  - - :str
+                                    - "  * Added "
+                                  - :+
+                                  - - :array
+                                    - - :call
+                                      - - :call
+                                        - - :dvar
+                                          - :c
+                                        - :added
+                                      - :strftime
+                                      - - :array
+                                        - - :str
+                                          - "%m/%d %H:%M"
+                                - :+
+                                - - :array
+                                  - - :str
+                                    - " by "
+                              - :+
+                              - - :array
+                                - - :call
+                                  - - :dvar
+                                    - :c
+                                  - :user
+                        - - :dasgn_curr
+                          - :wrapped
+                          - - :call
+                            - - :iter
+                              - - :call
+                                - - :call
+                                  - - :call
+                                    - - :dvar
+                                      - :c
+                                    - :comment
+                                  - :split
+                                  - - :array
+                                    - - :str
+                                      - |
+                                        
+
+                                - :collect
+                              - - :dasgn_curr
+                                - :line
+                              - - :if
+                                - - :call
+                                  - - :call
+                                    - - :dvar
+                                      - :line
+                                    - :length
+                                  - :>
+                                  - - :array
+                                    - - :lit
+                                      - 80
+                                - - :call
+                                  - - :call
+                                    - - :dvar
+                                      - :line
+                                    - :gsub
+                                    - - :array
+                                      - - :lit
+                                        - !ruby/regexp /(.{1,80})(\s+|$)/
+                                      - - :str
+                                        - |
+                                          \1
+
+                                  - :strip
+                                - - :dvar
+                                  - :line
+                            - :*
+                            - - :array
+                              - - :str
+                                - |
+                                  
+
+                        - - :dasgn_curr
+                          - :wrapped
+                          - - :iter
+                            - - :call
+                              - - :call
+                                - - :dvar
+                                  - :wrapped
+                                - :split
+                                - - :array
+                                  - - :str
+                                    - |
+                                      
+
+                              - :map
+                            - - :dasgn_curr
+                              - :line
+                            - - :call
+                              - - :str
+                                - !binary |
+                                  CQ==
+
+                              - :+
+                              - - :array
+                                - - :dvar
+                                  - :line
+                        - - :if
+                          - - :call
+                            - - :call
+                              - - :dvar
+                                - :wrapped
+                              - :size
+                            - :>
+                            - - :array
+                              - - :lit
+                                - 6
+                          - - :block
+                            - - :fcall
+                              - :puts
+                              - - :array
+                                - - :call
+                                  - - :call
+                                    - - :dvar
+                                      - :wrapped
+                                    - :[]
+                                    - - :array
+                                      - - :lit
+                                        - 0
+                                      - - :lit
+                                        - 6
+                                  - :join
+                                  - - :array
+                                    - - :str
+                                      - |
+                                        
+
+                            - - :fcall
+                              - :puts
+                              - - :array
+                                - - :str
+                                  - "\t** more... **"
+                          - - :fcall
+                            - :puts
+                            - - :array
+                              - - :call
+                                - - :dvar
+                                  - :wrapped
+                                - :join
+                                - - :array
+                                  - - :str
+                                    - |
+                                      
+
+                        - - :vcall
+                          - :puts
+          - - :defn
+            - :parse_ticket_new
+            - - :scope
+              - - :block
+                - - :args
+                - - :iasgn
+                  - :@options
+                  - - :hash
+                - - :call
+                  - - :iter
+                    - - :call
+                      - - :const
+                        - :OptionParser
+                      - :new
+                    - - :dasgn_curr
+                      - :opts
+                    - - :block
+                      - - :attrasgn
+                        - - :dvar
+                          - :opts
+                        - :banner=
+                        - - :array
+                          - - :str
+                            - "Usage: ti new [options]"
+                      - - :iter
+                        - - :call
+                          - - :dvar
+                            - :opts
+                          - :on
+                          - - :array
+                            - - :str
+                              - -t TITLE
+                            - - :str
+                              - --title TITLE
+                            - - :str
+                              - Title to use for the name of the new ticket
+                        - - :dasgn_curr
+                          - :v
+                        - - :attrasgn
+                          - - :ivar
+                            - :@options
+                          - :[]=
+                          - - :array
+                            - - :lit
+                              - :title
+                            - - :dvar
+                              - :v
+                  - :parse!
+          - - :defn
+            - :handle_ticket_new
+            - - :scope
+              - - :block
+                - - :args
+                - - :vcall
+                  - :parse_ticket_new
+                - - :if
+                  - - :lasgn
+                    - :t
+                    - - :call
+                      - - :vcall
+                        - :options
+                      - :[]
+                      - - :array
+                        - - :lit
+                          - :title
+                  - - :fcall
+                    - :ticket_show
+                    - - :array
+                      - - :call
+                        - - :ivar
+                          - :@tic
+                        - :ticket_new
+                        - - :array
+                          - - :lvar
+                            - :t
+                          - - :vcall
+                            - :options
+                  - - :block
+                    - - :lasgn
+                      - :message_file
+                      - - :call
+                        - - :call
+                          - - :const
+                            - :Tempfile
+                          - :new
+                          - - :array
+                            - - :str
+                              - ticgit_message
+                        - :path
+                    - - :iter
+                      - - :call
+                        - - :const
+                          - :File
+                        - :open
+                        - - :array
+                          - - :lvar
+                            - :message_file
+                          - - :str
+                            - w
+                      - - :dasgn_curr
+                        - :f
+                      - - :block
+                        - - :call
+                          - - :dvar
+                            - :f
+                          - :puts
+                          - - :array
+                            - - :str
+                              - |-
+                                
+                                # ---
+                        - - :call
+                          - - :dvar
+                            - :f
+                          - :puts
+                          - - :array
+                            - - :str
+                              - "tags:"
+                        - - :call
+                          - - :dvar
+                            - :f
+                          - :puts
+                          - - :array
+                            - - :str
+                              - "# first line will be the title of the tic, the rest will be the first comment"
+                        - - :call
+                          - - :dvar
+                            - :f
+                          - :puts
+                          - - :array
+                            - - :str
+                              - "# if you would like to add initial tags, put them on the 'tags:' line, comma delim"
+                    - - :if
+                      - - :lasgn
+                        - :message
+                        - - :fcall
+                          - :get_editor_message
+                          - - :array
+                            - - :lvar
+                              - :message_file
+                      - - :block
+                        - - :lasgn
+                          - :title
+                          - - :call
+                            - - :lvar
+                              - :message
+                            - :shift
+                        - - :if
+                          - - :and
+                            - - :lvar
+                              - :title
+                            - - :call
+                              - - :call
+                                - - :call
+                                  - - :lvar
+                                    - :title
+                                  - :chomp
+                                - :length
+                              - :>
+                              - - :array
+                                - - :lit
+                                  - 0
+                          - - :block
+                            - - :lasgn
+                              - :title
+                              - - :call
+                                - - :lvar
+                                  - :title
+                                - :chomp
+                            - - :if
+                              - - :call
+                                - - :call
+                                  - - :call
+                                    - - :lvar
+                                      - :message
+                                    - :last
+                                  - :[]
+                                  - - :array
+                                    - - :lit
+                                      - 0
+                                    - - :lit
+                                      - 5
+                                - :==
+                                - - :array
+                                  - - :str
+                                    - "tags:"
+                              - - :block
+                                - - :lasgn
+                                  - :tags
+                                  - - :call
+                                    - - :lvar
+                                      - :message
+                                    - :pop
+                                - - :lasgn
+                                  - :tags
+                                  - - :call
+                                    - - :lvar
+                                      - :tags
+                                    - :gsub
+                                    - - :array
+                                      - - :str
+                                        - "tags:"
+                                      - - :str
+                                        - ""
+                                - - :lasgn
+                                  - :tags
+                                  - - :iter
+                                    - - :call
+                                      - - :call
+                                        - - :lvar
+                                          - :tags
+                                        - :split
+                                        - - :array
+                                          - - :str
+                                            - ","
+                                      - :map
+                                    - - :lasgn
+                                      - :t
+                                    - - :call
+                                      - - :lvar
+                                        - :t
+                                      - :strip
+                              - 
+                            - - :if
+                              - - :call
+                                - - :call
+                                  - - :lvar
+                                    - :message
+                                  - :size
+                                - :>
+                                - - :array
+                                  - - :lit
+                                    - 0
+                              - - :lasgn
+                                - :comment
+                                - - :call
+                                  - - :lvar
+                                    - :message
+                                  - :join
+                                  - - :array
+                                    - - :str
+                                      - ""
+                              - 
+                            - - :fcall
+                              - :ticket_show
+                              - - :array
+                                - - :call
+                                  - - :ivar
+                                    - :@tic
+                                  - :ticket_new
+                                  - - :array
+                                    - - :lvar
+                                      - :title
+                                    - - :hash
+                                      - - :lit
+                                        - :comment
+                                      - - :lvar
+                                        - :comment
+                                      - - :lit
+                                        - :tags
+                                      - - :lvar
+                                        - :tags
+                          - - :fcall
+                            - :puts
+                            - - :array
+                              - - :str
+                                - You need to at least enter a title
+                      - - :fcall
+                        - :puts
+                        - - :array
+                          - - :str
+                            - It seems you wrote nothing
+          - - :defn
+            - :get_editor_message
+            - - :scope
+              - - :block
+                - - :args
+                  - :message_file
+                  - - :block
+                    - - :lasgn
+                      - :message_file
+                      - - :nil
+                - - :if
+                  - - :lvar
+                    - :message_file
+                  - 
+                  - - :lasgn
+                    - :message_file
+                    - - :call
+                      - - :call
+                        - - :const
+                          - :Tempfile
+                        - :new
+                        - - :array
+                          - - :str
+                            - ticgit_message
+                      - :path
+                - - :lasgn
+                  - :editor
+                  - - :or
+                    - - :call
+                      - - :const
+                        - :ENV
+                      - :[]
+                      - - :array
+                        - - :str
+                          - EDITOR
+                    - - :str
+                      - vim
+                - - :fcall
+                  - :system
+                  - - :array
+                    - - :dstr
+                      - ""
+                      - - :evstr
+                        - - :lvar
+                          - :editor
+                      - - :str
+                        - " "
+                      - - :evstr
+                        - - :lvar
+                          - :message_file
+                - - :lasgn
+                  - :message
+                  - - :call
+                    - - :const
+                      - :File
+                    - :readlines
+                    - - :array
+                      - - :lvar
+                        - :message_file
+                - - :lasgn
+                  - :message
+                  - - :iter
+                    - - :call
+                      - - :lvar
+                        - :message
+                      - :select
+                    - - :dasgn_curr
+                      - :line
+                    - - :not
+                      - - :call
+                        - - :call
+                          - - :dvar
+                            - :line
+                          - :[]
+                          - - :array
+                            - - :lit
+                              - 0
+                            - - :lit
+                              - 1
+                        - :==
+                        - - :array
+                          - - :str
+                            - "#"
+                - - :if
+                  - - :call
+                    - - :lvar
+                      - :message
+                    - :empty?
+                  - - :return
+                    - - :false
+                  - - :return
+                    - - :lvar
+                      - :message
+          - - :defn
+            - :parse_options!
+            - - :scope
+              - - :block
+                - - :args
+                - - :if
+                  - - :call
+                    - - :vcall
+                      - :args
+                    - :empty?
+                  - - :block
+                    - - :fcall
+                      - :puts
+                      - - :array
+                        - - :str
+                          - Please specify at least one action to execute.
+                    - - :fcall
+                      - :puts
+                      - - :array
+                        - - :str
+                          - " list state show new checkout comment tag assign points "
+                    - - :vcall
+                      - :exit
+                  - 
+                - - :iasgn
+                  - :@action
+                  - - :call
+                    - - :vcall
+                      - :args
+                    - :first
+          - - :defn
+            - :just
+            - - :scope
+              - - :block
+                - - :args
+                  - :value
+                  - :size
+                  - :side
+                  - - :block
+                    - - :lasgn
+                      - :side
+                      - - :str
+                        - l
+                - - :lasgn
+                  - :value
+                  - - :call
+                    - - :lvar
+                      - :value
+                    - :to_s
+                - - :if
+                  - - :call
+                    - - :call
+                      - - :lvar
+                        - :value
+                      - :size
+                    - :>
+                    - - :array
+                      - - :lvar
+                        - :size
+                  - - :lasgn
+                    - :value
+                    - - :call
+                      - - :lvar
+                        - :value
+                      - :[]
+                      - - :array
+                        - - :lit
+                          - 0
+                        - - :lvar
+                          - :size
+                  - 
+                - - :if
+                  - - :call
+                    - - :lvar
+                      - :side
+                    - :==
+                    - - :array
+                      - - :str
+                        - r
+                  - - :return
+                    - - :call
+                      - - :lvar
+                        - :value
+                      - :rjust
+                      - - :array
+                        - - :lvar
+                          - :size
+                  - - :return
+                    - - :call
+                      - - :lvar
+                        - :value
+                      - :ljust
+                      - - :array
+                        - - :lvar
+                          - :size

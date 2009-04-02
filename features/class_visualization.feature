@@ -17,4 +17,6 @@ Feature: Ruby class visualization
     | example4   |
     | example5   |
     | example6   |
+    | modules    |
+    | requires   |
     | ticgit-cli |

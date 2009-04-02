@@ -57,11 +57,31 @@ module Rubyviz
     def self.visit_tree(t)
       if t[0] == :class
         visit_class(t)
+      elsif t[0] == :module
+        visit_module(t)
+      elsif t[0] == :block
+        visit_outer_block(t)
+      end
+    end
+    
+    def self.visit_outer_block(b)
+      contents = b.clone
+      contents.shift
+      contents.each do |stmt|
+        visit_tree(stmt)
+      end
+    end
+    
+    def self.visit_module(m)
+      name = m[1].to_s
+      scope = m[2]
+      if scope[1][0] == :class
+        visit_class(scope[1])
       end
     end
     
     def self.visit_class(c)
-      name = c[1]
+      name = c[1].to_s
       if c[3][0] == :scope
         scope = c[3]
         if scope[1][0] == :defn
