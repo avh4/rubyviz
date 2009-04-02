@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+
+require 'rubygems'
+require 'parse_tree'
+require 'yaml'
+
+puts ParseTree.translate(File.read(ARGV[0])).to_yaml
