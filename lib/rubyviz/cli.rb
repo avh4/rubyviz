@@ -96,7 +96,17 @@ module Rubyviz
       contents.each do |stmt|
         if stmt[0] == :iasgn
           visit_var(stmt[1])
+          visit_expression(stmt[2])
         end
+        if stmt[0] == :lasgn
+          visit_expression(stmt[2])
+        end
+      end
+    end
+    
+    def self.visit_expression(e)
+      if e[0] == :ivar
+        visit_var(e[1])
       end
     end
     
