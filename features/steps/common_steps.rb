@@ -5,7 +5,7 @@ end
 
 When /^I execute "rubyviz ([^"]*)"$/ do |cmd|
   in_project_folder do
-    capture_output "ruby -rubygems #{rubyviz_cmd} #{cmd}"
+    capture_output "#{rubyviz_cmd} #{cmd}"
     if $?.exitstatus != 0
       fail File.read(output_of("ruby -rubygems #{rubyviz_cmd} #{cmd}"))
     end
