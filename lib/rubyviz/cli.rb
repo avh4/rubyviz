@@ -11,6 +11,7 @@ module Rubyviz
     
     def initialize
       @attr_readers = []
+      @attr_writers = []
     end
     
     def execute(stdout, arguments=[])
@@ -76,6 +77,11 @@ module Rubyviz
           graph_method_call(n[1])
           if n[1] == :attr_reader
             visit_attr_reader(n)
+          elsif n[1] == :attr_writer
+            visit_attr_writer(n)
+          elsif n[1] == :attr_accessor
+            visit_attr_reader(n)
+            visit_attr_writer(n)
           end
         elsif [:call, :attrasgn].include?(n[0])
           if n[1][0] == :self
@@ -98,6 +104,14 @@ module Rubyviz
       end
     end
     
+    def visit_attr_writer(n)
+      children = n[2].clone
+      children.shift
+      children.each do |child|
+        mark_attr_writer(child[1])
+      end
+    end
+    
     def visit_defn(d)
       name = d[1].to_s
       @m = @g.add_node( "\"#{name}\"" )
@@ -115,6 +129,8 @@ module Rubyviz
       name = sym.to_s
       if @attr_readers.include?(name)
         visit_var("@#{name}")
+      elsif @attr_writers.include?(name.sub(/=$/, ''))
+        visit_var("@#{name.sub(/=$/, '')}")
       else
         call = @g.add_node( "\"#{name}\"" )
         @g.add_edge(@m, call)
@@ -124,6 +140,11 @@ module Rubyviz
     def mark_attr_reader(sym)
       name = sym.to_s
       @attr_readers.push(name)
+    end
+    
+    def mark_attr_writer(sym)
+      name = sym.to_s
+      @attr_writers.push(name)
     end
   end
 end

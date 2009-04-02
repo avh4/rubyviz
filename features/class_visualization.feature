@@ -30,4 +30,6 @@ Feature: Ruby class visualization
     | method_calls       | method_names        |
     | attributes         | attr_reader         |
     | attributes         | attr_readers        |
+    | attributes         | attr_writer         |
+    | attributes         | attr_accessor       |
     | .                  | ticgit-cli          |
