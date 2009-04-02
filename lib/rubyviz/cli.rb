@@ -109,12 +109,12 @@ module Rubyviz
     
     def visit_defn(d)
       name = d[1].to_s
-      @m = @g.add_node( "\"#{name}\"" )
+      @m = @g.add_node( "\"#{name}\"")
     end
     
     def visit_var(v)
       name = v.to_s
-      @v = @g.add_node( "\"#{name}\"")
+      @v = @g.add_node( "\"#{name}\"", :shape => 'box', :style => 'filled', :color => 'grey')
       @g.add_edge(@m, @v)
     end
     
