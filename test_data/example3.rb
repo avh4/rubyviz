@@ -1,4 +1,4 @@
-# A class with a single method that uses a variable
+# A class with a single method that sets an instance variable
 
 class Example3
   def method1

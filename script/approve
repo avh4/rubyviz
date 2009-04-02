@@ -3,7 +3,7 @@ APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
 require 'fileutils'
 
-new_file = File.expand_path(File.join(File.dirname(__FILE__), "../tmp/project/#{ARGV[0]}"))
+new_file = File.expand_path(File.join(File.dirname(__FILE__), "../failed_#{ARGV[0]}"))
 approved_file = File.expand_path(File.join(File.dirname(__FILE__), "../test_data/#{ARGV[0]}"))
 if !File.exist?(new_file)
   puts "#{new_file} does not exist"
