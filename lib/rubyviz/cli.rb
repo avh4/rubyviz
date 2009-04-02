@@ -47,19 +47,14 @@ module Rubyviz
 
       path = options[:path]
 
-      # do stuff
       generate_png(arguments[0])
     end
     
     def generate_png(input)
-      @g = GraphViz::new( "G", "output" => "png" )
+      @g = GraphViz::new( "G", :output => 'png')
 
       tree = ParseTree.translate(File.read(input))
       visit_tree(tree)
-      # v = g.add_node( '"@var1"' )
-      #      
-      #      g.add_edge( a, v )
-
       @g.output( :file => "#{input}.png" )
     end
     
