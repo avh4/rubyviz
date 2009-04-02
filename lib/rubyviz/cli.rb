@@ -62,10 +62,25 @@ module Rubyviz
     
     def self.visit_class(c)
       name = c[1]
-      scope = c[3]
-      raise "expected :scope in class" if scope[0] != :scope
-      defn = scope[1]
-      visit_defn(defn)
+      if c[3][0] == :scope
+        scope = c[3]
+        if scope[1][0] == :defn
+          visit_defn(scope[1])
+        end
+        if scope[1][0] == :block
+          visit_block(scope[1])
+        end
+      end
+    end
+    
+    def self.visit_block(b)
+      contents = b.clone
+      contents.shift
+      contents.each do |content|
+        if content[0] == :defn
+          visit_defn(content)
+        end
+      end
     end
     
     def self.visit_defn(d)
