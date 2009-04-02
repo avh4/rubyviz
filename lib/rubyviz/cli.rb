@@ -86,6 +86,24 @@ module Rubyviz
     def self.visit_defn(d)
       name = d[1].to_s
       @m = @g.add_node( name )
+      scope = d[2]
+      visit_method_block(scope[1])
+    end
+    
+    def self.visit_method_block(b)
+      contents = b.clone
+      contents.shift
+      contents.each do |stmt|
+        if stmt[0] == :iasgn
+          visit_var(stmt[1])
+        end
+      end
+    end
+    
+    def self.visit_var(v)
+      name = v.to_s
+      @v = @g.add_node( "\"#{name}\"")
+      @g.add_edge(@m, @v)
     end
   end
 end
