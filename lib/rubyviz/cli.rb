@@ -64,8 +64,10 @@ module Rubyviz
     
     def visit_statement(n)
       if n.class == Array
-        if [:ivar, :iasgn].include?(n[0])
-          visit_var(n[1])
+        if [:ivar].include?(n[0])
+          visit_var_read(n[1])
+        elsif [:iasgn].include?(n[0])
+          visit_var_write(n[1])
         elsif [:defn].include?(n[0])
           visit_defn(n)
         elsif [:vcall, :fcall].include?(n[0])
@@ -112,20 +114,26 @@ module Rubyviz
       @m = @g.add_node( "\"#{name}\"")
     end
     
-    def visit_var(v)
+    def visit_var_read(v)
       name = v.to_s
       @v = @g.add_node( "\"#{name}\"", :shape => 'box', :style => 'filled', :color => 'grey')
       @g.add_edge(@m, @v)
     end
     
+    def visit_var_write(v)
+      name = v.to_s
+      @v = @g.add_node( "\"#{name}\"", :shape => 'box', :style => 'filled', :color => 'grey')
+      @g.add_edge(@m, @v, :color => 'red')
+    end
+
     def graph_method_call(sym)
       return if @m == nil
       return if [:puts, :system, :raise, :require, :exit].include?(sym)
       name = sym.to_s
       if @attr_readers.include?(name)
-        visit_var("@#{name}")
+        visit_var_read("@#{name}")
       elsif @attr_writers.include?(name.sub(/=$/, ''))
-        visit_var("@#{name.sub(/=$/, '')}")
+        visit_var_write("@#{name.sub(/=$/, '')}")
       else
         call = @g.add_node( "\"#{name}\"" )
         @g.add_edge(@m, call)
