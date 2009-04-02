@@ -55,50 +55,20 @@ module Rubyviz
     end
     
     def self.visit_tree(t)
-      if t[0] == :class
-        visit_class(t)
-      elsif t[0] == :module
-        visit_module(t)
-      elsif t[0] == :block
-        visit_outer_block(t)
-      end
+      visit_statement(t)
     end
     
-    def self.visit_outer_block(b)
-      contents = b.clone
-      contents.shift
-      contents.each do |stmt|
-        visit_tree(stmt)
-      end
-    end
-    
-    def self.visit_module(m)
-      name = m[1].to_s
-      scope = m[2]
-      if scope[1][0] == :class
-        visit_class(scope[1])
-      end
-    end
-    
-    def self.visit_class(c)
-      name = c[1].to_s
-      if c[3][0] == :scope
-        scope = c[3]
-        if scope[1][0] == :defn
-          visit_defn(scope[1])
+    def self.visit_statement(n)
+      if n.class == Array
+        if [:ivar, :iasgn].include?(n[0])
+          visit_var(n[1])
+        elsif [:defn].include?(n[0])
+          visit_defn(n)
         end
-        if scope[1][0] == :block
-          visit_block(scope[1])
-        end
-      end
-    end
-    
-    def self.visit_block(b)
-      contents = b.clone
-      contents.shift
-      contents.each do |content|
-        if content[0] == :defn
-          visit_defn(content)
+        n.each do |child|
+          if (child.class == Array)
+            visit_statement(child)
+          end
         end
       end
     end
@@ -106,36 +76,6 @@ module Rubyviz
     def self.visit_defn(d)
       name = d[1].to_s
       @m = @g.add_node( name )
-      scope = d[2]
-      visit_method_block(scope[1])
-    end
-    
-    def self.visit_method_block(b)
-      contents = b.clone
-      contents.shift
-      contents.each do |stmt|
-        visit_statement(stmt)
-      end
-    end
-    
-    def self.visit_statement(n)
-      if n[0] == :iasgn
-        visit_var(n[1])
-        visit_expression(n[2])
-      elsif n[0] == :lasgn
-        visit_expression(n[2])
-      elsif n[0] == :rescue
-        visit_statement(n[1])
-        visit_statement(n[2][2])
-      elsif n[0] == :block
-        visit_method_block(n)
-      end
-    end
-    
-    def self.visit_expression(e)
-      if e[0] == :ivar
-        visit_var(e[1])
-      end
     end
     
     def self.visit_var(v)
