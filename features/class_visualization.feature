@@ -5,22 +5,22 @@ Feature: Ruby class visualization
   I want to see a diagram of how class methods and variables collaborate
 
   Scenario Outline: Example ruby file
-    Given a sample ruby file, <example>.rb
+    Given a sample ruby file, <group>/<example>.rb
     When I execute "rubyviz <example>.rb"
     Then the expected output file "<example>.rb.png" should be produced
     
   Examples:
-    | example    |
-    | example1   |
-    | example2   |
-    | example3   |
-    | example4   |
-    | example5   |
-    | example6   |
-    | modules    |
-    | requires   |
-    | method_rescue |
-    | method_rescue_block |
-    | variable_call |
-    | bare_method |
-    | ticgit-cli |
+    | group              | example             |
+    | methods            | example1            |
+    | methods            | example2            |
+    | methods            | modules             |
+    | methods            | requires            |
+    | methods            | bare_method         |
+    | instance_variables | example3            |
+    | instance_variables | example4            |
+    | instance_variables | example5            |
+    | instance_variables | example6            |
+    | instance_variables | method_rescue       |
+    | instance_variables | method_rescue_block |
+    | instance_variables | variable_call       |
+    | .                  | ticgit-cli          |
