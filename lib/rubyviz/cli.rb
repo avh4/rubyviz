@@ -1,5 +1,6 @@
 require 'optparse'
 require 'fileutils'
+require 'parse_tree'
 require 'graphviz'
 
 module Rubyviz
@@ -42,14 +43,34 @@ module Rubyviz
     end
     
     def self.generate_png(input)
-      g = GraphViz::new( "G", "output" => "png" )
+      @g = GraphViz::new( "G", "output" => "png" )
 
-      a = g.add_node( "method1" )
+      tree = ParseTree.translate(File.read(input))
+      visit_tree(tree)
       # v = g.add_node( '"@var1"' )
       #      
       #      g.add_edge( a, v )
 
-      g.output( :file => "#{input}.png" )
+      @g.output( :file => "#{input}.png" )
+    end
+    
+    def self.visit_tree(t)
+      if t[0] == :class
+        visit_class(t)
+      end
+    end
+    
+    def self.visit_class(c)
+      name = c[1]
+      scope = c[3]
+      raise "expected :scope in class" if scope[0] != :scope
+      defn = scope[1]
+      visit_defn(defn)
+    end
+    
+    def self.visit_defn(d)
+      name = d[1].to_s
+      @m = @g.add_node( name )
     end
   end
 end

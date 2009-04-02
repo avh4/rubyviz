@@ -16,5 +16,8 @@ Then /^the expected output file "([^"]*)" should be produced$/ do |file|
     pending "test_data_file(file) needs to be created"
   end
   capture_output "diff #{project_folder_file(file)} #{test_data_file(file)}"
-  $?.exitstatus.should == 0
+  if $?.exitstatus != 0
+    FileUtils.cp project_folder_file(file), "failed_#{file}"
+    fail "Files did not match (#{file})"
+  end
 end
