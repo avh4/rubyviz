@@ -28,4 +28,6 @@ Feature: Ruby class visualization
     | method_calls       | many_calls          |
     | method_calls       | ignore_keywords     |
     | method_calls       | method_names        |
+    | attributes         | attr_reader         |
+    | attributes         | attr_readers        |
     | .                  | ticgit-cli          |

@@ -3,11 +3,10 @@ APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
 require 'fileutils'
 
-file = "" + ARGV[0]
-file.gsub!(/failed_/, '')
+file = "" + ARGV[0] + ".png"
 
-new_file = File.expand_path(File.join(File.dirname(__FILE__), "../failed_#{file}"))
-approved_file = File.expand_path(File.join(File.dirname(__FILE__), "../test_data/#{file}"))
+new_file = File.expand_path(File.join(File.dirname(__FILE__), "../failed_" + File.basename(file)))
+approved_file = File.expand_path(file)
 if !File.exist?(new_file)
   puts "#{new_file} does not exist"
   exit 1
