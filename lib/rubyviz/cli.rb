@@ -54,15 +54,11 @@ module Rubyviz
       @graph = GraphViz::new( "G", :output => 'png')
 
       tree = ParseTree.translate(File.read(input))
-      visit_tree(tree)
+      visit_node(tree)
       @graph.output( :file => "#{input}.png" )
     end
     
-    def visit_tree(t)
-      visit_statement(t)
-    end
-    
-    def visit_statement(n)
+    def visit_node(n)
       if n.class == Array
         if [:ivar].include?(n[0])
           draw_var_read(n[1])
@@ -87,7 +83,7 @@ module Rubyviz
         end
         n.each do |child|
           if (child.class == Array)
-            visit_statement(child)
+            visit_node(child)
           end
         end
       end
