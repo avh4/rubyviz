@@ -3,9 +3,9 @@ Manifest.txt
 PostInstall.txt
 README.rdoc
 Rakefile
+bin/rubyviz
+lib/rubyviz/cli.rb
 lib/rubyviz.rb
 script/console
 script/destroy
 script/generate
-test/test_helper.rb
-test/test_rubyviz.rb
