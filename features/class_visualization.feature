@@ -10,10 +10,11 @@ Feature: Ruby class visualization
     Then the expected output file "<example>.rb.png" should be produced
     
   Examples:
-    | example  |
-    | example1 |
-    | example2 |
-    | example3 |
-    | example4 |
-    | example5 |
-    | example6 |
+    | example    |
+    | example1   |
+    | example2   |
+    | example3   |
+    | example4   |
+    | example5   |
+    | example6   |
+    | ticgit-cli |
