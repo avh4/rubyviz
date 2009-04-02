@@ -23,4 +23,7 @@ Feature: Ruby class visualization
     | instance_variables | method_rescue       |
     | instance_variables | method_rescue_block |
     | instance_variables | variable_call       |
+    | method_calls       | single_call         |
+    | method_calls       | many_calls          |
+    | method_calls       | ignore_keywords     |
     | .                  | ticgit-cli          |
