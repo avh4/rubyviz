@@ -66,6 +66,10 @@ module Rubyviz
           visit_defn(n)
         elsif [:vcall, :fcall].include?(n[0])
           graph_method_call(n[1])
+        elsif [:call, :attrasgn].include?(n[0])
+          if n[1][0] == :self
+            graph_method_call(n[2])
+          end
         end
         n.each do |child|
           if (child.class == Array)
@@ -77,7 +81,7 @@ module Rubyviz
     
     def self.visit_defn(d)
       name = d[1].to_s
-      @m = @g.add_node( name )
+      @m = @g.add_node( "\"#{name}\"" )
     end
     
     def self.visit_var(v)
@@ -90,7 +94,7 @@ module Rubyviz
       return if @m == nil
       return if [:puts, :system, :raise, :require, :exit].include?(sym)
       name = sym.to_s
-      call = @g.add_node( name )
+      call = @g.add_node( "\"#{name}\"" )
       @g.add_edge(@m, call)
     end
   end

@@ -20,4 +20,7 @@ class Example1
   def method5
     5 + center
   end
+  def method6
+    self.center
+  end
 end

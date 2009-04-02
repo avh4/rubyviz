@@ -16,6 +16,7 @@ Feature: Ruby class visualization
     | methods            | modules             |
     | methods            | requires            |
     | methods            | bare_method         |
+    | methods            | method_names        |
     | instance_variables | example3            |
     | instance_variables | example4            |
     | instance_variables | example5            |
@@ -26,4 +27,5 @@ Feature: Ruby class visualization
     | method_calls       | single_call         |
     | method_calls       | many_calls          |
     | method_calls       | ignore_keywords     |
+    | method_calls       | method_names        |
     | .                  | ticgit-cli          |
