@@ -19,4 +19,5 @@ Feature: Ruby class visualization
     | example6   |
     | modules    |
     | requires   |
+    | method_rescue |
     | ticgit-cli |

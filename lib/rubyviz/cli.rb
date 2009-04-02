@@ -114,13 +114,21 @@ module Rubyviz
       contents = b.clone
       contents.shift
       contents.each do |stmt|
-        if stmt[0] == :iasgn
-          visit_var(stmt[1])
-          visit_expression(stmt[2])
-        end
-        if stmt[0] == :lasgn
-          visit_expression(stmt[2])
-        end
+        visit_statement(stmt)
+      end
+    end
+    
+    def self.visit_statement(n)
+      if n[0] == :iasgn
+        visit_var(n[1])
+        visit_expression(n[2])
+      end
+      if n[0] == :lasgn
+        visit_expression(n[2])
+      end
+      if n[0] == :rescue
+        visit_statement(n[1])
+        visit_statement(n[2][2])
       end
     end
     
