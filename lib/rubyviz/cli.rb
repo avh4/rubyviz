@@ -51,11 +51,11 @@ module Rubyviz
     end
     
     def generate_png(input)
-      @g = GraphViz::new( "G", :output => 'png')
+      @graph = GraphViz::new( "G", :output => 'png')
 
       tree = ParseTree.translate(File.read(input))
       visit_tree(tree)
-      @g.output( :file => "#{input}.png" )
+      @graph.output( :file => "#{input}.png" )
     end
     
     def visit_tree(t)
@@ -65,13 +65,13 @@ module Rubyviz
     def visit_statement(n)
       if n.class == Array
         if [:ivar].include?(n[0])
-          visit_var_read(n[1])
+          draw_var_read(n[1])
         elsif [:iasgn].include?(n[0])
-          visit_var_write(n[1])
+          draw_var_write(n[1])
         elsif [:defn].include?(n[0])
-          visit_defn(n)
+          draw_method(n)
         elsif [:vcall, :fcall].include?(n[0])
-          graph_method_call(n[1])
+          draw_method_call(n[1])
           if n[1] == :attr_reader
             visit_attr_reader(n)
           elsif n[1] == :attr_writer
@@ -82,7 +82,7 @@ module Rubyviz
           end
         elsif [:call, :attrasgn].include?(n[0])
           if n[1][0] == :self
-            graph_method_call(n[2])
+            draw_method_call(n[2])
           end
         end
         n.each do |child|
@@ -109,34 +109,34 @@ module Rubyviz
       end
     end
     
-    def visit_defn(d)
+    def draw_method(d)
       name = d[1].to_s
-      @m = @g.add_node( "\"#{name}\"")
+      @method = @graph.add_node( "\"#{name}\"")
     end
     
-    def visit_var_read(v)
+    def draw_var_read(v)
       name = v.to_s
-      @v = @g.add_node( "\"#{name}\"", :shape => 'box', :style => 'filled', :color => 'grey')
-      @g.add_edge(@m, @v)
+      node = @graph.add_node( "\"#{name}\"", :shape => 'box', :style => 'filled', :color => 'grey')
+      @graph.add_edge(@method, node)
     end
     
-    def visit_var_write(v)
+    def draw_var_write(v)
       name = v.to_s
-      @v = @g.add_node( "\"#{name}\"", :shape => 'box', :style => 'filled', :color => 'grey')
-      @g.add_edge(@m, @v, :color => 'red')
+      node = @graph.add_node( "\"#{name}\"", :shape => 'box', :style => 'filled', :color => 'grey')
+      @graph.add_edge(@method, node, :color => 'red')
     end
 
-    def graph_method_call(sym)
-      return if @m == nil
+    def draw_method_call(sym)
+      return if @method == nil
       return if [:puts, :system, :raise, :require, :exit].include?(sym)
       name = sym.to_s
       if @attr_readers.include?(name)
-        visit_var_read("@#{name}")
+        draw_var_read("@#{name}")
       elsif @attr_writers.include?(name.sub(/=$/, ''))
-        visit_var_write("@#{name.sub(/=$/, '')}")
+        draw_var_write("@#{name.sub(/=$/, '')}")
       else
-        call = @g.add_node( "\"#{name}\"" )
-        @g.add_edge(@m, call)
+        call = @graph.add_node( "\"#{name}\"" )
+        @graph.add_edge(@method, call)
       end
     end
     
