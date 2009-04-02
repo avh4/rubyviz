@@ -20,4 +20,5 @@ Feature: Ruby class visualization
     | modules    |
     | requires   |
     | method_rescue |
+    | method_rescue_block |
     | ticgit-cli |

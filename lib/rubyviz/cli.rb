@@ -122,13 +122,13 @@ module Rubyviz
       if n[0] == :iasgn
         visit_var(n[1])
         visit_expression(n[2])
-      end
-      if n[0] == :lasgn
+      elsif n[0] == :lasgn
         visit_expression(n[2])
-      end
-      if n[0] == :rescue
+      elsif n[0] == :rescue
         visit_statement(n[1])
         visit_statement(n[2][2])
+      elsif n[0] == :block
+        visit_method_block(n)
       end
     end
     
